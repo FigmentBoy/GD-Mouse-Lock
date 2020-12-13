@@ -9,7 +9,7 @@ int main()
 {
     SetConsoleTitleA("Cursor Lock");
 
-    std::cout << "Your cursor is now locked to GD when you have it selected! (Works best in fullscreen mode)" << std::endl;
+    std::cout << "Your cursor is now locked to GD when you have it selected!" << std::endl;
 
     RECT previous;
     GetClipCursor(&previous);
@@ -22,13 +22,14 @@ int main()
 
         if (GetWindowTextA(window, &windowTxt, 18)) {
             if (windowStr == "Geometry Dash") {
-                RECT rect, frame;
+                RECT rect;
                 GetWindowRect(window, &rect);
-                DwmGetWindowAttribute(window, DWMWA_EXTENDED_FRAME_BOUNDS, &frame, sizeof(RECT));
 
-                
+                rect.left += 7;
+                rect.right -= 14;
+                rect.bottom -= 7;
 
-                ClipCursor(&windowDimensions);
+                ClipCursor(&rect);
             }
             else {
                 ClipCursor(&previous);
