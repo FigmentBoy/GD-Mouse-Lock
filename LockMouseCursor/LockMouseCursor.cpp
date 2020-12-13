@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <windows.h>
-#include <iostream>
+#include <dwmapi.h>
 
 int main()
 {
@@ -22,8 +22,11 @@ int main()
 
         if (GetWindowTextA(window, &windowTxt, 18)) {
             if (windowStr == "Geometry Dash") {
-                RECT windowDimensions;
-                GetWindowRect(window, &windowDimensions);
+                RECT rect, frame;
+                GetWindowRect(window, &rect);
+                DwmGetWindowAttribute(window, DWMWA_EXTENDED_FRAME_BOUNDS, &frame, sizeof(RECT));
+
+                
 
                 ClipCursor(&windowDimensions);
             }
