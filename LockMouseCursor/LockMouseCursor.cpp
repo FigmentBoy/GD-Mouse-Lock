@@ -7,7 +7,7 @@
 
 int main()
 {
-    SetConsoleTitle(("Lock Cursor"));
+    SetConsoleTitleA("Cursor Lock");
 
     std::cout << "Your cursor is now locked to GD when you have it selected! (Works best in fullscreen mode)" << std::endl;
 
@@ -25,7 +25,6 @@ int main()
                 RECT windowDimensions;
                 GetWindowRect(window, &windowDimensions);
 
-                GetClipCursor(&previous);
                 ClipCursor(&windowDimensions);
             }
             else {
