@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <windows.h>
-#include <dwmapi.h>
 
 int main()
 {
