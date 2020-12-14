@@ -33,14 +33,16 @@ int main()
 
     std::cout << "Your cursor is now locked to GD when you have it selected! If you want to move your mouse outside of the GD window, you can press alt and it will unlock your mouse! Also, you can alt+tab to move to another program." << std::endl << std::endl << "Made by Figment (FigmentBoy)" << std::endl;
 
-    RECT previous;
-    GetClipCursor(&previous);
+    RECT full, prev;
+    GetClipCursor(&full);
+    prev = full;
 
     while (true) {
         TCHAR windowTxt;
         HWND window = GetForegroundWindow();
 
         std::string windowStr(&windowTxt);
+
 
         if (GetWindowTextA(window, &windowTxt, 18)) {
             if (windowStr == "Geometry Dash" && !(GetKeyState(VK_LMENU) & 0x8000 || GetKeyState(VK_RMENU) & 0x8000)) {
@@ -54,11 +56,14 @@ int main()
                     rect.bottom -= 8;
                 }
                 
-
                 ClipCursor(&rect);
+                prev = rect;
             }
             else {
-                ClipCursor(&previous);
+                if (prev.left != full.left && prev.top != full.top && prev.right != full.right && prev.bottom != full.bottom) {
+                    ClipCursor(&full);
+                    prev = full;
+                }
             }
         }
     }
