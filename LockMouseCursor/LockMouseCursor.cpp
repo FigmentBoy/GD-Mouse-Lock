@@ -29,9 +29,9 @@ bool isFullscreen(HWND window)
 
 int main()
 {
-    SetConsoleTitleA("Cursor Lock");
+    SetConsoleTitleA("Cursor Lock by Figment (FigmentBoy)");
 
-    std::cout << "Your cursor is now locked to GD when you have it selected! If you want to move your mouse outside of the GD window, you can press alt and it will unlock your mouse! Also, you can alt+tab to move to another program." << std::endl;
+    std::cout << "Your cursor is now locked to GD when you have it selected! If you want to move your mouse outside of the GD window, you can press alt and it will unlock your mouse! Also, you can alt+tab to move to another program." << std::endl << std::endl << "Made by Figment (FigmentBoy)" << std::endl;
 
     RECT previous;
     GetClipCursor(&previous);
