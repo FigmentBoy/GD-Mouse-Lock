@@ -34,7 +34,7 @@ int main()
 {
     SetConsoleTitleA("Cursor Lock");
 
-    std::cout << "Your cursor is now locked to GD when you have it selected!" << std::endl;
+    std::cout << "Your cursor is now locked to GD when you have it selected! If you want to move your mouse outside of the GD window, you can press alt and it will unlock your mouse! Also, you can alt+tab to move to another program." << std::endl;
 
     RECT previous;
     GetClipCursor(&previous);
@@ -46,7 +46,7 @@ int main()
         std::string windowStr(&windowTxt);
 
         if (GetWindowTextA(window, &windowTxt, 18)) {
-            if (windowStr == "Geometry Dash") {
+            if (windowStr == "Geometry Dash" && !(GetKeyState(VK_LMENU) & 0x8000 || GetKeyState(VK_RMENU) & 0x8000)) {
                 RECT rect;
                 GetWindowRect(window, &rect);
 
