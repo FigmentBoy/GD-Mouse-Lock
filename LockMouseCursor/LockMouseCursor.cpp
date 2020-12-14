@@ -4,6 +4,32 @@
 #include <iostream>
 #include <windows.h>
 
+// Totally not from stack overflow
+inline int get_title_bar_thickness(const HWND window_handle)
+{
+    RECT window_rectangle, client_rectangle;
+    int height, width;
+    GetWindowRect(window_handle, &window_rectangle);
+    GetClientRect(window_handle, &client_rectangle);
+    height = (window_rectangle.bottom - window_rectangle.top) -
+        (client_rectangle.bottom - client_rectangle.top);
+    width = (window_rectangle.right - window_rectangle.left) -
+        (client_rectangle.right - client_rectangle.left);
+    return height - (width / 2);
+}
+
+// Also totally not from stack overflow
+bool isFullscreen(HWND window)
+{
+    RECT a, b;
+    GetWindowRect(window, &a);
+    GetWindowRect(GetDesktopWindow(), &b);
+    return (a.left == b.left &&
+        a.top == b.top &&
+        a.right == b.right &&
+        a.bottom == b.bottom);
+}
+
 int main()
 {
     SetConsoleTitleA("Cursor Lock");
@@ -24,9 +50,13 @@ int main()
                 RECT rect;
                 GetWindowRect(window, &rect);
 
-                rect.left += 7;
-                rect.right -= 14;
-                rect.bottom -= 7;
+                if (!isFullscreen(window)) {
+                    rect.left += 8;
+                    rect.top += get_title_bar_thickness(window);
+                    rect.right -= 8;
+                    rect.bottom -= 8;
+                }
+                
 
                 ClipCursor(&rect);
             }
@@ -36,3 +66,4 @@ int main()
         }
     }
 }
+
